@@ -1,0 +1,57 @@
+#DOCUMENTATION = '''
+#---
+#module: github_repo
+#short_description: Manage your repos on Github
+#'''
+#
+#EXAMPLES = '''
+#- name: Create a github Repo
+#  github_repo:
+#    github_auth_key: "..."
+#    name: "Hello-World"
+#    description: "This is your first repository"
+#    private: yes
+#    has_issues: no
+#    has_wiki: no
+#    has_downloads: no
+#  register: result
+#
+#- name: Delete that repo
+#  github_repo:
+#    github_auth_key: "..."
+#    name: "Hello-World"
+#    state: absent
+#  register: result
+#'''
+
+
+- hosts: localhost
+  vars_files: 
+    - /home/ansible/.confid/confidential
+  vars:
+    - ansible_python_interpreter: "/usr/bin/python3"
+
+  tasks:
+    - name: Create a github Repo
+      github_repo:
+        github_auth_key: "{{github_token}}"
+        username: "Alemgit"
+        name: "Hello-World"
+        description: "Create Github repo with Ansible custom module"
+        private: yes
+        has_issues: no
+        has_wiki: no
+        has_downloads: no
+        state: present
+      register: result   
+      when: delete is not defined
+
+    - name: Delete GitHub Repo
+      github_repo:
+        github_auth_key:  "{{github_token}}" 
+        username: "Alemgit"
+        name: "Hello-World"
+        state: absent
+      when: delete is defined 
+      tags:
+        - delete 
