@@ -1,6 +1,6 @@
 - hosts: localhost
-  vars_files: 
-    - /home/ansible/.confid/confidential
+#  vars_files: 
+#   - /home/ansible/.confid/confidential
   vars:
     - ansible_python_interpreter: "/usr/bin/python3"
 
@@ -8,8 +8,8 @@
     - name: Create a github Repo
       github_repo:
         github_auth_key: "{{github_token}}"
-        username: "Alemgit"
-        name: "Hello-World"
+        username: "{{github_username}}"
+        name: "{{github_repo_name}}"
         description: "Create Github repo with Ansible custom module"
         private: yes
         has_issues: no
@@ -24,8 +24,8 @@
     - name: Delete GitHub Repo
       github_repo:
         github_auth_key:  "{{github_token}}" 
-        username: "Alemgit"
-        name: "Hello-World"
+        username: "{{github_username}}"
+        name: "{{github_repo_name}}"
         state: absent
       when: delete is defined 
       tags:
