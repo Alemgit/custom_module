@@ -18,6 +18,8 @@
         state: present
       register: result   
       when: delete is not defined
+      tags:
+        - create_repo
 
     - name: Delete GitHub Repo
       github_repo:
@@ -27,4 +29,4 @@
         state: absent
       when: delete is defined 
       tags:
-        - delete 
+        - delete_repo
