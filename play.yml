@@ -17,7 +17,6 @@
         has_downloads: no
         state: present
       register: result   
-      when: delete is not defined
       tags:
         - create_repo
 
@@ -26,7 +25,6 @@
         github_auth_key:  "{{github_token}}" 
         username: "{{github_username}}"
         name: "{{github_repo_name}}"
-        state: absent
-      when: delete is defined 
+        state: absent 
       tags:
         - delete_repo
